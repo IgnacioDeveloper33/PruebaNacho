@@ -1,0 +1,17 @@
+server:
+  app:
+    auto: true
+  servlet:
+    context-path: /animales/v1
+
+spring:
+  application:
+    name: animales
+
+#Spring boot actuator config for health check
+endpoints:
+  health:
+    sensitive: false
+    mapping:
+      DOWN: SERVICE_UNAVAILABLE
+
