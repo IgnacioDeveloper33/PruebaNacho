@@ -92,4 +92,44 @@ public class AnimalService {
             throw new ServiceException("ServiceError", e.getMessage(), e);
         }
     }
+
+    public Boolean updateAnimal(Animal animal){
+
+        try{
+            Optional<AnimalesEntity> optionalAnimalesEntity = animalesRepository.findByAnimalid(animal.getAnimalid());
+            if (optionalAnimalesEntity.isPresent()){
+                AnimalesEntity animalesEntity = optionalAnimalesEntity.get();
+                animalesEntity.setAnimalid(animal.getAnimalid());
+                animalesEntity.setFamilia(animal.getFamilia());
+                animalesEntity.setNombre_comun(animal.getNombre_comun());
+                animalesEntity.setPhylum(animal.getPhylum());
+                animalesRepository.saveAndFlush(animalesEntity);
+                return true;
+            }
+        }catch (Exception e){
+            LOGGER.error(this.getClass().getName());
+            LOGGER.error("getAnimalById");
+            LOGGER.error(e.getMessage());
+            throw new ServiceException("ServiceError", e.getMessage(), e);
+        }
+        throw new NotFoundException("Animal Not Found", null, null);
+    }
+
+    public Boolean deleteAnimalById(String animalid){
+
+        try{
+            Optional<AnimalesEntity> optionalAnimalesEntity = animalesRepository.findByAnimalid(animalid);
+            if (optionalAnimalesEntity.isPresent()){
+                AnimalesEntity animalesEntity = optionalAnimalesEntity.get();
+                animalesRepository.delete(animalesEntity);
+                return true;
+            }
+        }catch (Exception e){
+            LOGGER.error(this.getClass().getName());
+            LOGGER.error("deleteAnimalById");
+            LOGGER.error(e.getMessage());
+            throw new ServiceException("ServiceError", e.getMessage(), e);
+        }
+        throw new NotFoundException("Animal Not Found", null, null);
+    }
 }

@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +35,17 @@ public class AnimalController {
     public ResponseEntity<List<Animal>> getAnimal(){
         LOGGER.info("Obteniendo Animal");
         return ResponseEntity.ok().body(animalService.getAnimals());
+    }
+
+    @PostMapping(value = "/animal", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> updateAnimal(@RequestBody Animal animal){
+        LOGGER.info("Update Animal");
+        return ResponseEntity.ok().body(animalService.updateAnimal(animal));
+    }
+
+    @DeleteMapping(value = "/animal/{animalId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> deleteAnimalById(@PathVariable String animalId){
+        LOGGER.info("Delete Animal");
+        return ResponseEntity.ok().body(animalService.deleteAnimalById(animalId));
     }
 }
