@@ -17,6 +17,6 @@ class AnimalServiceTest {
 
     @Test
     public void shouldCreateAnimal(){
-        Mockito.when 
+
     }
 }
