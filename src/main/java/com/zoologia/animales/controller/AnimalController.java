@@ -32,7 +32,7 @@ public class AnimalController {
     }
 
     @GetMapping(value = "/animal", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Animal>> getAnimal(){
+    public ResponseEntity<List<Animal>> getAnimals(){
         LOGGER.info("Obteniendo Animal");
         return ResponseEntity.ok().body(animalService.getAnimals());
     }
